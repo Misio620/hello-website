@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>黃秘修 Misio — Issue #001 / Riso Edition</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Serif+Display:ital@0;1&family=Space+Grotesk:wght@400;500;700&family=Noto+Serif+TC:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f1ead8;
+    --ink:#1a1a1a;
+    --ink-soft:#3d3d3d;
+    --orange:#ff5b1f;
+    --blue:#2046d6;
+    --overlap:#7a2b6b;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Space Grotesk','Noto Serif TC',sans-serif;
+    color:var(--ink);background:var(--paper);
+    min-height:100vh;overflow-x:hidden;position:relative;
+  }
+  /* 紙張紋理 */
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:1;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.08 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    mix-blend-mode:multiply;opacity:.6;
+  }
+  /* 半色調圓點 */
+  .halftone{
+    background-image:radial-gradient(circle, var(--orange) 1.4px, transparent 1.6px);
+    background-size:7px 7px;
+  }
+  .halftone-blue{
+    background-image:radial-gradient(circle, var(--blue) 1.4px, transparent 1.6px);
+    background-size:7px 7px;
+  }
+
+  main{max-width:980px;margin:0 auto;padding:0 28px;position:relative;z-index:2}
+
+  /* Masthead */
+  .masthead{
+    border-top:6px solid var(--ink);border-bottom:1px solid var(--ink);
+    padding:14px 0;margin-top:24px;
+    display:flex;justify-content:space-between;align-items:baseline;
+    font-family:'Space Grotesk',sans-serif;font-size:11px;
+    letter-spacing:2px;text-transform:uppercase;
+  }
+  .masthead .logo{font-family:'Anton',sans-serif;font-size:22px;letter-spacing:4px;color:var(--ink)}
+  .masthead .meta span{margin-left:18px;color:var(--ink-soft)}
+
+  /* Cover */
+  .cover{
+    position:relative;padding:60px 0 40px;
+    border-bottom:1px solid var(--ink);
+  }
+  .cover .issue-tag{
+    display:inline-block;background:var(--orange);color:var(--paper);
+    padding:4px 14px;font-family:'Space Grotesk',sans-serif;
+    font-weight:700;font-size:11px;letter-spacing:3px;
+    text-transform:uppercase;margin-bottom:24px;
+    transform:rotate(-1deg);mix-blend-mode:multiply;
+  }
+  .cover h1{
+    font-family:'Noto Serif TC',serif;font-weight:900;
+    font-size:clamp(72px,14vw,168px);line-height:.92;
+    letter-spacing:-3px;color:var(--ink);margin-bottom:8px;
+  }
+  .cover .name-en{
+    font-family:'DM Serif Display',serif;font-style:italic;
+    font-size:clamp(56px,11vw,128px);line-height:.95;
+    color:var(--orange);mix-blend-mode:multiply;
+    margin-left:-4px;margin-bottom:18px;letter-spacing:-2px;
+  }
+  .cover .label{
+    display:inline-block;font-family:'Space Grotesk',sans-serif;
+    font-size:12px;letter-spacing:5px;text-transform:uppercase;
+    border:1.5px solid var(--ink);padding:6px 14px;color:var(--ink);
+    background:var(--paper);
+  }
+  .cover .role-tags{margin-top:28px;display:flex;flex-wrap:wrap;gap:10px}
+  .role-tags .tag{
+    font-family:'Space Grotesk',sans-serif;font-size:12px;
+    padding:6px 14px;letter-spacing:1px;
+    background:var(--blue);color:var(--paper);
+    mix-blend-mode:multiply;
+  }
+  .role-tags .tag.t2{background:var(--orange);transform:rotate(.5deg)}
+  .role-tags .tag.t3{background:var(--ink);transform:rotate(-.5deg)}
+
+  /* OPEN TO WORK 印章 */
+  .stamp{
+    position:absolute;top:54px;right:0;
+    width:150px;height:150px;border:3px solid var(--orange);
+    border-radius:50%;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;
+    transform:rotate(8deg);color:var(--orange);
+    font-family:'Anton',sans-serif;mix-blend-mode:multiply;
+    text-align:center;line-height:1.05;
+  }
+  .stamp::before{
+    content:"";position:absolute;inset:8px;
+    border:1.5px solid var(--orange);border-radius:50%;
+  }
+  .stamp .top{font-size:18px;letter-spacing:2px}
+  .stamp .big{font-size:36px;letter-spacing:1px;margin:2px 0}
+  .stamp .bot{font-size:11px;letter-spacing:3px}
+
+  /* 大引言 */
+  .pull-quote{
+    padding:50px 0;border-bottom:1px solid var(--ink);
+    display:grid;grid-template-columns:120px 1fr;gap:30px;align-items:start;
+  }
+  .pull-quote .num{
+    font-family:'Anton',sans-serif;font-size:96px;
+    color:var(--blue);mix-blend-mode:multiply;line-height:.85;
+  }
+  .pull-quote blockquote{
+    font-family:'Noto Serif TC',serif;font-weight:500;
+    font-size:clamp(22px,3.2vw,30px);line-height:1.45;
+    color:var(--ink);
+  }
+  .pull-quote blockquote em{
+    color:var(--orange);font-style:normal;mix-blend-mode:multiply;
+    font-weight:700;
+  }
+  .pull-quote .by{
+    margin-top:18px;font-family:'Space Grotesk',sans-serif;
+    font-size:11px;letter-spacing:3px;color:var(--ink-soft);
+    text-transform:uppercase;
+  }
+
+  /* Chapter sections */
+  .chapter{padding:50px 0;border-bottom:1px solid var(--ink)}
+  .chapter-head{
+    display:flex;align-items:baseline;gap:20px;margin-bottom:30px;
+    border-bottom:2px solid var(--ink);padding-bottom:14px;
+  }
+  .chapter-num{
+    font-family:'Anton',sans-serif;font-size:42px;color:var(--orange);
+    mix-blend-mode:multiply;letter-spacing:2px;
+  }
+  .chapter-title{
+    font-family:'Noto Serif TC',serif;font-weight:900;
+    font-size:32px;color:var(--ink);
+  }
+  .chapter-kicker{
+    margin-left:auto;font-family:'Space Grotesk',sans-serif;
+    font-size:11px;letter-spacing:3px;color:var(--ink-soft);
+    text-transform:uppercase;
+  }
+
+  /* About — 雜誌排版 */
+  .about-grid{display:grid;grid-template-columns:1fr 1.6fr;gap:36px;align-items:start}
+  .about-photo{
+    aspect-ratio:3/4;background:var(--blue);
+    mix-blend-mode:multiply;position:relative;overflow:hidden;
+  }
+  .about-photo .dots{
+    position:absolute;inset:0;
+    background-image:radial-gradient(circle, var(--paper) 1.4px, transparent 1.6px);
+    background-size:7px 7px;opacity:.55;
+  }
+  .about-photo .label{
+    position:absolute;bottom:14px;left:14px;
+    font-family:'Space Grotesk',sans-serif;
+    font-size:10px;letter-spacing:3px;color:var(--paper);
+    text-transform:uppercase;
+  }
+  .about-text{font-family:'Noto Serif TC',serif;font-weight:500;color:var(--ink)}
+  .about-text .lead{
+    font-size:22px;line-height:1.5;margin-bottom:22px;font-weight:700;
+  }
+  .about-text .lead em{color:var(--orange);font-style:normal;mix-blend-mode:multiply}
+  .about-text p{font-size:15px;line-height:1.85;margin-bottom:14px;color:var(--ink-soft)}
+  .about-text p strong{color:var(--ink)}
+  .about-text p em{color:var(--blue);font-style:normal;font-weight:700;mix-blend-mode:multiply}
+
+  /* Contact — 表格樣式 */
+  .contact-table{width:100%;border-collapse:collapse;font-family:'Space Grotesk',sans-serif}
+  .contact-table tr{border-bottom:1px dashed var(--ink)}
+  .contact-table tr:last-child{border-bottom:none}
+  .contact-table td{padding:16px 0;vertical-align:baseline}
+  .contact-table .k{
+    font-family:'Anton',sans-serif;font-size:14px;letter-spacing:3px;
+    color:var(--orange);mix-blend-mode:multiply;width:160px;
+    text-transform:uppercase;
+  }
+  .contact-table .v{
+    font-family:'Noto Serif TC',serif;font-weight:700;
+    font-size:18px;color:var(--ink);
+  }
+  .contact-table .v small{
+    display:block;font-family:'Space Grotesk',sans-serif;
+    font-weight:400;font-size:12px;color:var(--ink-soft);
+    letter-spacing:1px;margin-top:4px;
+  }
+
+  /* Skills — 索引卡 */
+  .skill-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:0;border:1.5px solid var(--ink)}
+  .skill-card{
+    padding:24px 18px;border-right:1px solid var(--ink);
+    border-bottom:1px solid var(--ink);position:relative;
+    background:var(--paper);
+  }
+  .skill-card:last-child{border-right:none}
+  .skill-card .num{
+    font-family:'Anton',sans-serif;font-size:14px;color:var(--blue);
+    letter-spacing:2px;margin-bottom:12px;mix-blend-mode:multiply;
+  }
+  .skill-card h3{
+    font-family:'Noto Serif TC',serif;font-weight:900;font-size:18px;
+    color:var(--ink);margin-bottom:8px;line-height:1.3;
+  }
+  .skill-card p{
+    font-family:'Space Grotesk',sans-serif;font-size:12px;
+    color:var(--ink-soft);line-height:1.5;
+  }
+  .skill-card.accent{background:var(--orange);mix-blend-mode:multiply}
+  .skill-card.accent .num,
+  .skill-card.accent h3,
+  .skill-card.accent p{color:var(--paper);mix-blend-mode:normal}
+
+  /* Colophon */
+  .colophon{
+    padding:50px 0 80px;text-align:center;
+  }
+  .download-btn{
+    display:inline-block;font-family:'Anton',sans-serif;
+    font-size:24px;letter-spacing:6px;padding:18px 48px;
+    background:var(--ink);color:var(--paper);border:none;
+    cursor:pointer;text-transform:uppercase;
+    transition:transform .2s;position:relative;
+  }
+  .download-btn::after{
+    content:"";position:absolute;inset:6px -6px -6px 6px;
+    background:var(--orange);mix-blend-mode:multiply;z-index:-1;
+  }
+  .download-btn:hover{transform:translate(-2px,-2px)}
+  .colophon-meta{
+    margin-top:32px;font-family:'Space Grotesk',sans-serif;
+    font-size:11px;letter-spacing:3px;color:var(--ink-soft);
+    text-transform:uppercase;line-height:2;
+  }
+  .colophon-meta a{color:var(--blue);text-decoration:none;mix-blend-mode:multiply}
+  .colophon hr{
+    border:none;border-top:1px solid var(--ink);
+    margin:32px auto;width:60px;
+  }
+
+  /* 裝飾半色調區塊 */
+  .deco-band{
+    height:40px;margin:0 -28px;
+    background-image:radial-gradient(circle, var(--blue) 1.6px, transparent 1.8px);
+    background-size:8px 8px;opacity:.5;mix-blend-mode:multiply;
+  }
+
+  @media(max-width:740px){
+    main{padding:0 18px}
+    .stamp{top:auto;bottom:-20px;right:0;width:110px;height:110px}
+    .stamp .big{font-size:26px}
+    .stamp .top{font-size:13px}
+    .stamp .bot{font-size:9px}
+    .pull-quote{grid-template-columns:1fr;gap:14px}
+    .pull-quote .num{font-size:64px}
+    .about-grid{grid-template-columns:1fr;gap:24px}
+    .chapter-head{flex-wrap:wrap;gap:12px}
+    .chapter-kicker{margin-left:0;width:100%}
+    .contact-table .k{width:120px;font-size:12px}
+    .contact-table .v{font-size:15px}
+  }
+</style>
+</head>
+<body>
+<main>
+
+  <!-- Masthead -->
+  <header class="masthead">
+    <div class="logo">MISIO ZINE</div>
+    <div class="meta">
+      <span>VOL.01</span><span>2026</span><span>TAIPEI</span>
+    </div>
+  </header>
+
+  <!-- Cover -->
+  <section class="cover">
+    <div class="issue-tag">Issue #001 — Self Portrait</div>
+    <h1>黃秘修</h1>
+    <div class="name-en">Misio Huang</div>
+    <span class="label">Bi Siou Huang · 產品專案助理</span>
+    <div class="role-tags">
+      <span class="tag">PROJECT MANAGER</span>
+      <span class="tag t2">SAAS / AI</span>
+      <span class="tag t3">流程拆解</span>
+    </div>
+    <div class="stamp">
+      <span class="top">★ OPEN ★</span>
+      <span class="big">TO WORK</span>
+      <span class="bot">2026</span>
+    </div>
+  </section>
+
+  <!-- Pull quote -->
+  <section class="pull-quote">
+    <div class="num">“</div>
+    <div>
+      <blockquote>天空告訴我沒有<em>框架</em>，<br/>而<em>好奇心</em>帶我去<em>拆解</em>。</blockquote>
+      <div class="by">— Misio · Editor's Note</div>
+    </div>
+  </section>
+
+  <!-- Chapter 01 -->
+  <section class="chapter">
+    <div class="chapter-head">
+      <span class="chapter-num">01</span>
+      <h2 class="chapter-title">關於</h2>
+      <span class="chapter-kicker">Featured Story · 5 min read</span>
+    </div>
+    <div class="about-grid">
+      <div class="about-photo">
+        <div class="dots"></div>
+        <span class="label">Self · 2026</span>
+      </div>
+      <div class="about-text">
+        <p class="lead">嗨，我是黃秘修（Misio），一位轉職中的<em>產品專案助理</em>。</p>
+        <p>過去 <strong>5 年</strong>在醫療研究領域累積 <em>跨職能協作</em> 與 <em>資料分析</em> 經驗，擅長把複雜問題拆成清晰、可執行的計畫。</p>
+        <p>在 <strong>長庚紀念醫院</strong> 期間，我與臨床、行政、廠商團隊合作多步驟篩檢專案——協調任務、標準化資料收集、把繁複程序拆成大家照著做就能完成的步驟。</p>
+        <p>現在我把同樣的方法套用在自主學習的 <strong>SaaS / AI</strong> 專案，用 AI 工具與 no-code 實驗驗證流程，把每次學習轉成可重複使用的範本與檢核表。</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="deco-band"></div>
+
+  <!-- Chapter 02 -->
+  <section class="chapter">
+    <div class="chapter-head">
+      <span class="chapter-num">02</span>
+      <h2 class="chapter-title">聯絡</h2>
+      <span class="chapter-kicker">Directory · Page 02</span>
+    </div>
+    <table class="contact-table">
+      <tr>
+        <td class="k">Name</td>
+        <td class="v">Bi Siou (Misio) Huang<small>黃秘修</small></td>
+      </tr>
+      <tr>
+        <td class="k">Email</td>
+        <td class="v">misiohuang620@gmail.com<small>主要聯絡方式</small></td>
+      </tr>
+      <tr>
+        <td class="k">Location</td>
+        <td class="v">台北—基隆都會區<small>可遠端／到府</small></td>
+      </tr>
+      <tr>
+        <td class="k">Education</td>
+        <td class="v">國立宜蘭大學<small>National Ilan University</small></td>
+      </tr>
+      <tr>
+        <td class="k">Status</td>
+        <td class="v">求職中<small>PM · SaaS · AI 領域職缺</small></td>
+      </tr>
+    </table>
+  </section>
+
+  <!-- Chapter 03 -->
+  <section class="chapter">
+    <div class="chapter-head">
+      <span class="chapter-num">03</span>
+      <h2 class="chapter-title">能力</h2>
+      <span class="chapter-kicker">Index · Page 03</span>
+    </div>
+    <div class="skill-cards">
+      <div class="skill-card">
+        <div class="num">01 / 05</div>
+        <h3>流程拆解</h3>
+        <p>把複雜問題節點化、串接成可重用的流程圖。</p>
+      </div>
+      <div class="skill-card accent">
+        <div class="num">02 / 05</div>
+        <h3>AI 協作</h3>
+        <p>Prompt 設計、工具鏈組合、把 AI 變成日常生產力。</p>
+      </div>
+      <div class="skill-card">
+        <div class="num">03 / 05</div>
+        <h3>檢核表</h3>
+        <p>把方法論轉成可重複使用的範本與 SOP。</p>
+      </div>
+      <div class="skill-card">
+        <div class="num">04 / 05</div>
+        <h3>跨團隊協作</h3>
+        <p>臨床、行政、廠商三方溝通與任務協調。</p>
+      </div>
+      <div class="skill-card">
+        <div class="num">05 / 05</div>
+        <h3>資料分析</h3>
+        <p>SPSS · Excel · 視覺化，把數據說成故事。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Colophon -->
+  <section class="colophon">
+    <button class="download-btn">DOWNLOAD CV</button>
+    <hr/>
+    <div class="colophon-meta">
+      <div>PRINTED IN TAIPEI · 2026</div>
+      <div><a href="mailto:misiohuang620@gmail.com">misiohuang620@gmail.com</a></div>
+      <div>★ MADE WITH CURIOSITY ★</div>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

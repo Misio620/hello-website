@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>misio@portfolio: ~/about — zsh</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Noto+Sans+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0d0f17; --panel:#161924; --border:#2a2e44;
+    --text:#e6e6f0; --dim:#7a7f9a;
+    --green:#50fa7b; --cyan:#8be9fd; --pink:#ff79c6;
+    --yellow:#f1fa8c; --purple:#bd93f9; --orange:#ffb86c;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--bg);min-height:100vh;color:var(--text);
+    font-family:'JetBrains Mono','Noto Sans Mono',monospace;font-size:14px;line-height:1.65}
+  body{
+    padding:32px 16px;
+    background:
+      radial-gradient(ellipse at 80% 20%, rgba(189,147,249,.10) 0%, transparent 50%),
+      radial-gradient(ellipse at 20% 80%, rgba(80,250,123,.06) 0%, transparent 50%),
+      var(--bg);
+  }
+  .terminal{
+    max-width:920px;margin:0 auto;background:var(--panel);
+    border:1px solid var(--border);border-radius:10px;
+    box-shadow:0 30px 80px rgba(0,0,0,.5),0 0 60px rgba(189,147,249,.08);
+    overflow:hidden;
+  }
+  .titlebar{
+    display:flex;align-items:center;gap:8px;
+    padding:12px 16px;background:#1c2030;border-bottom:1px solid var(--border);
+  }
+  .titlebar .dot{width:12px;height:12px;border-radius:50%}
+  .titlebar .red{background:#ff5f57}
+  .titlebar .yellow{background:#febc2e}
+  .titlebar .green{background:#28c840}
+  .titlebar .title{flex:1;text-align:center;color:var(--dim);font-size:12px}
+  .content{padding:28px 32px;min-height:60vh}
+  .banner{color:var(--purple);white-space:pre;line-height:1.1;font-size:11px;margin-bottom:24px;opacity:.9}
+  .line{margin:6px 0;display:flex;flex-wrap:wrap;gap:8px}
+  .prompt{color:var(--green);font-weight:500;flex-shrink:0}
+  .cmd{color:var(--text)}
+  .flag{color:var(--orange)}
+  .str{color:var(--yellow)}
+  .kw{color:var(--pink)}
+  .var{color:var(--cyan)}
+  .output{color:var(--text);padding:6px 0 14px 0;display:block;width:100%}
+  .md-h{color:var(--cyan);font-weight:700;display:block;margin-top:8px}
+  .md-strong{color:var(--pink);font-weight:700}
+  .md-em{color:var(--orange);font-style:italic}
+  .md-code{background:#0a0c14;color:var(--green);padding:1px 6px;border-radius:3px;font-size:13px}
+  .output p{margin:4px 0}
+  .skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:8px;margin:6px 0 8px 0}
+  .skill{padding:10px 14px;border:1px solid var(--border);border-radius:6px;background:#0f1220}
+  .skill .check{color:var(--green);margin-right:8px}
+  .skill .meta{color:var(--dim);font-size:12px;display:block;margin-top:2px;padding-left:24px}
+  .kv{display:grid;grid-template-columns:120px 1fr;gap:8px 16px;margin:6px 0 0 0}
+  .kv .k{color:var(--dim)}
+  .kv .v{color:var(--text)}
+  .btn{
+    display:inline-block;margin:8px 0;padding:11px 22px;
+    background:var(--green);color:var(--bg);border:none;
+    font:inherit;font-weight:700;border-radius:4px;cursor:pointer;letter-spacing:1px;
+  }
+  .btn:hover{background:var(--cyan)}
+  .cursor{
+    display:inline-block;width:8px;height:1em;background:var(--green);
+    animation:blink 1s steps(2) infinite;vertical-align:text-bottom;margin-left:4px;
+  }
+  @keyframes blink{50%{opacity:0}}
+  @media(max-width:560px){
+    .content{padding:18px}
+    .banner{font-size:8px}
+    .kv{grid-template-columns:90px 1fr}
+  }
+</style>
+</head>
+<body>
+<div class="terminal">
+  <div class="titlebar">
+    <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+    <span class="title">misio@portfolio: ~/about — zsh</span>
+  </div>
+  <div class="content">
+<pre class="banner">
+   __  ___ _      _
+  /  |/  /(_)____(_)___
+ / /|_/ // // ___// // _ \
+/ /  / // /(__  )/ //  __/
+\/  /_//_//____//_/ \___/   v.2026.04
+</pre>
+
+    <div class="line"><span class="prompt">misio@portfolio:~$</span> <span class="cmd">whoami</span></div>
+    <div class="output"><span class="str">"黃秘修 Bi Siou (Misio) Huang"</span></div>
+
+    <div class="line"><span class="prompt">misio@portfolio:~$</span> <span class="cmd">cat</span> <span class="str">role.txt</span></div>
+    <div class="output">產品專案助理 <span class="kw">·</span> 流程拆解 <span class="kw">·</span> AI 協作</div>
+
+    <div class="line"><span class="prompt">misio@portfolio:~$</span> <span class="cmd">echo</span> <span class="var">$TAGLINE</span></div>
+    <div class="output"><span class="str">"天空告訴我沒有框架，而好奇心帶我去拆解。"</span></div>
+
+    <div class="line"><span class="prompt">misio@portfolio:~$</span> <span class="cmd">cat</span> <span class="str">about.md</span></div>
+    <div class="output">
+      <span class="md-h">## 關於</span>
+      <p>嗨，我是 <span class="md-strong">黃秘修（Misio）</span>，一位轉職中的 <span class="md-em">產品專案助理</span>。</p>
+      <p>過去 <span class="md-strong">5 年</span>在醫療研究領域累積 <span class="md-em">跨職能協作</span> 與 <span class="md-em">資料分析</span> 經驗，擅長把複雜問題拆成清晰、可執行的計畫。</p>
+      <span class="md-h">## 經歷</span>
+      <p>在 <span class="md-strong">長庚紀念醫院</span> 與臨床、行政、廠商團隊合作多步驟篩檢專案 — 協調任務、標準化資料收集、把繁複程序拆成大家照著做就能完成的步驟。</p>
+      <span class="md-h">## 現在</span>
+      <p>把同樣的方法套用在自主學習的 <span class="md-code">SaaS</span> / <span class="md-code">AI</span> 專案，用 AI 工具與 no-code 實驗驗證流程、撰寫簡易規格，把每次學習轉成 <span class="md-strong">可重複使用的檢核表與範本</span>。</p>
+    </div>
+
+    <div class="line"><span class="prompt">misio@portfolio:~$</span> <span class="cmd">ls</span> <span class="flag">-la</span> <span class="str">skills/</span></div>
+    <div class="output">
+      <div class="skills">
+        <div class="skill"><span class="check">[✓]</span>workflow_design<span class="meta">節點化拆解、串接流程</span></div>
+        <div class="skill"><span class="check">[✓]</span>ai_collaboration<span class="meta">prompt 與工具鏈組合</span></div>
+        <div class="skill"><span class="check">[✓]</span>checklist_template<span class="meta">把方法做成可重用範本</span></div>
+        <div class="skill"><span class="check">[✓]</span>cross_team_sync<span class="meta">臨床／行政／廠商協作</span></div>
+        <div class="skill"><span class="check">[✓]</span>data_analysis<span class="meta">SPSS · Excel · 視覺化</span></div>
+      </div>
+    </div>
+
+    <div class="line"><span class="prompt">misio@portfolio:~$</span> <span class="cmd">contact</span> <span class="flag">--info</span></div>
+    <div class="output">
+      <div class="kv">
+        <span class="k">email</span><span class="v"><span class="str">misiohuang620@gmail.com</span></span>
+        <span class="k">location</span><span class="v">台北—基隆都會區</span>
+        <span class="k">education</span><span class="v">國立宜蘭大學</span>
+        <span class="k">status</span><span class="v"><span class="kw">open_to_pm_roles</span></span>
+      </div>
+    </div>
+
+    <div class="line"><span class="prompt">misio@portfolio:~$</span> <span class="cmd">resume</span> <span class="flag">--download</span></div>
+    <div class="output">
+      <button class="btn">$ DOWNLOAD_RESUME.PDF</button>
+    </div>
+
+    <div class="line"><span class="prompt">misio@portfolio:~$</span><span class="cursor"></span></div>
+  </div>
+</div>
+</body>
+</html>
