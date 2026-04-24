@@ -12,9 +12,8 @@
     --paper:#f1ead8;
     --ink:#1a1a1a;
     --ink-soft:#3d3d3d;
-    --orange:#ff5b1f;
-    --blue:#2046d6;
-    --overlap:#7a2b6b;
+    --brick:#c9452e;
+    --teal:#0f8b8d;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
@@ -29,11 +28,11 @@
     mix-blend-mode:multiply;opacity:.6;
   }
   .halftone{
-    background-image:radial-gradient(circle, var(--orange) 1.4px, transparent 1.6px);
+    background-image:radial-gradient(circle, var(--brick) 1.4px, transparent 1.6px);
     background-size:7px 7px;
   }
   .halftone-blue{
-    background-image:radial-gradient(circle, var(--blue) 1.4px, transparent 1.6px);
+    background-image:radial-gradient(circle, var(--teal) 1.4px, transparent 1.6px);
     background-size:7px 7px;
   }
 
@@ -56,7 +55,7 @@
     border-bottom:1px solid var(--ink);
   }
   .cover .issue-tag{
-    display:inline-block;background:var(--orange);color:var(--paper);
+    display:inline-block;background:var(--brick);color:var(--paper);
     padding:4px 14px;font-family:'Space Grotesk',sans-serif;
     font-weight:700;font-size:11px;letter-spacing:3px;
     text-transform:uppercase;margin-bottom:24px;
@@ -70,7 +69,7 @@
   .cover .name-en{
     font-family:'DM Serif Display',serif;font-style:italic;
     font-size:clamp(56px,11vw,128px);line-height:.95;
-    color:var(--orange);mix-blend-mode:multiply;
+    color:var(--brick);mix-blend-mode:multiply;
     margin-left:-4px;margin-bottom:18px;letter-spacing:-2px;
   }
   .cover .label{
@@ -83,29 +82,11 @@
   .role-tags .tag{
     font-family:'Space Grotesk',sans-serif;font-size:12px;
     padding:6px 14px;letter-spacing:1px;
-    background:var(--blue);color:var(--paper);
+    background:var(--teal);color:var(--paper);
     mix-blend-mode:multiply;
   }
-  .role-tags .tag.t2{background:var(--orange);transform:rotate(.5deg)}
+  .role-tags .tag.t2{background:var(--brick);transform:rotate(.5deg)}
   .role-tags .tag.t3{background:var(--ink);transform:rotate(-.5deg)}
-
-  /* OPEN TO WORK 印章 */
-  .stamp{
-    position:absolute;top:54px;right:0;
-    width:150px;height:150px;border:3px solid var(--orange);
-    border-radius:50%;display:flex;flex-direction:column;
-    align-items:center;justify-content:center;
-    transform:rotate(8deg);color:var(--orange);
-    font-family:'Anton',sans-serif;mix-blend-mode:multiply;
-    text-align:center;line-height:1.05;
-  }
-  .stamp::before{
-    content:"";position:absolute;inset:8px;
-    border:1.5px solid var(--orange);border-radius:50%;
-  }
-  .stamp .top{font-size:18px;letter-spacing:2px}
-  .stamp .big{font-size:36px;letter-spacing:1px;margin:2px 0}
-  .stamp .bot{font-size:11px;letter-spacing:3px}
 
   /* Pull quote */
   .pull-quote{
@@ -114,7 +95,7 @@
   }
   .pull-quote .num{
     font-family:'Anton',sans-serif;font-size:96px;
-    color:var(--blue);mix-blend-mode:multiply;line-height:.85;
+    color:var(--teal);mix-blend-mode:multiply;line-height:.85;
   }
   .pull-quote blockquote{
     font-family:'Noto Serif TC',serif;font-weight:500;
@@ -122,7 +103,7 @@
     color:var(--ink);
   }
   .pull-quote blockquote em{
-    color:var(--orange);font-style:normal;mix-blend-mode:multiply;
+    color:var(--brick);font-style:normal;mix-blend-mode:multiply;
     font-weight:700;
   }
   .pull-quote .by{
@@ -138,7 +119,7 @@
     border-bottom:2px solid var(--ink);padding-bottom:14px;
   }
   .chapter-num{
-    font-family:'Anton',sans-serif;font-size:42px;color:var(--orange);
+    font-family:'Anton',sans-serif;font-size:42px;color:var(--brick);
     mix-blend-mode:multiply;letter-spacing:2px;
   }
   .chapter-title{
@@ -153,29 +134,47 @@
 
   /* About */
   .about-grid{display:grid;grid-template-columns:1fr 1.6fr;gap:36px;align-items:start}
-  .about-photo{
-    aspect-ratio:3/4;background:var(--blue);
-    mix-blend-mode:multiply;position:relative;overflow:hidden;
+  .geo-illust{
+    aspect-ratio:3/4;position:relative;overflow:hidden;
+    background:var(--paper);border:1.5px solid var(--ink);
   }
-  .about-photo .dots{
+  .geo-illust .shape{position:absolute;mix-blend-mode:multiply}
+  .geo-illust .c-teal{
+    width:72%;height:54%;top:-8%;left:-10%;
+    border-radius:50%;background:var(--teal);
+  }
+  .geo-illust .s-brick{
+    width:62%;height:46%;top:28%;right:-6%;
+    background:var(--brick);transform:rotate(-4deg);
+  }
+  .geo-illust .c-brick{
+    width:28%;height:20%;bottom:12%;left:18%;
+    border-radius:50%;background:var(--brick);
+  }
+  .geo-illust .s-teal{
+    width:22%;height:16%;bottom:8%;right:12%;
+    background:var(--teal);transform:rotate(6deg);
+  }
+  .geo-illust .dots-overlay{
     position:absolute;inset:0;
-    background-image:radial-gradient(circle, var(--paper) 1.4px, transparent 1.6px);
-    background-size:7px 7px;opacity:.55;
+    background-image:radial-gradient(circle, var(--ink) 1px, transparent 1.2px);
+    background-size:9px 9px;opacity:.22;
   }
-  .about-photo .label{
-    position:absolute;bottom:14px;left:14px;
+  .geo-illust .label{
+    position:absolute;bottom:10px;left:10px;z-index:2;
     font-family:'Space Grotesk',sans-serif;
-    font-size:10px;letter-spacing:3px;color:var(--paper);
-    text-transform:uppercase;
+    font-size:10px;letter-spacing:3px;color:var(--ink);
+    text-transform:uppercase;background:var(--paper);
+    padding:3px 8px;border:1px solid var(--ink);
   }
   .about-text{font-family:'Noto Serif TC',serif;font-weight:500;color:var(--ink)}
   .about-text .lead{
     font-size:22px;line-height:1.5;margin-bottom:22px;font-weight:700;
   }
-  .about-text .lead em{color:var(--orange);font-style:normal;mix-blend-mode:multiply}
+  .about-text .lead em{color:var(--brick);font-style:normal;mix-blend-mode:multiply}
   .about-text p{font-size:15px;line-height:1.85;margin-bottom:14px;color:var(--ink-soft)}
   .about-text p strong{color:var(--ink)}
-  .about-text p em{color:var(--blue);font-style:normal;font-weight:700;mix-blend-mode:multiply}
+  .about-text p em{color:var(--teal);font-style:normal;font-weight:700;mix-blend-mode:multiply}
 
   /* Contact */
   .contact-table{width:100%;border-collapse:collapse;font-family:'Space Grotesk',sans-serif}
@@ -184,7 +183,7 @@
   .contact-table td{padding:16px 0;vertical-align:baseline}
   .contact-table .k{
     font-family:'Anton',sans-serif;font-size:14px;letter-spacing:3px;
-    color:var(--orange);mix-blend-mode:multiply;width:160px;
+    color:var(--brick);mix-blend-mode:multiply;width:160px;
     text-transform:uppercase;
   }
   .contact-table .v{
@@ -206,7 +205,7 @@
   }
   .skill-card:last-child{border-right:none}
   .skill-card .num{
-    font-family:'Anton',sans-serif;font-size:14px;color:var(--blue);
+    font-family:'Anton',sans-serif;font-size:14px;color:var(--teal);
     letter-spacing:2px;margin-bottom:12px;mix-blend-mode:multiply;
   }
   .skill-card h3{
@@ -217,7 +216,7 @@
     font-family:'Space Grotesk',sans-serif;font-size:12px;
     color:var(--ink-soft);line-height:1.5;
   }
-  .skill-card.accent{background:var(--orange);mix-blend-mode:multiply}
+  .skill-card.accent{background:var(--brick);mix-blend-mode:multiply}
   .skill-card.accent .num,
   .skill-card.accent h3,
   .skill-card.accent p{color:var(--paper);mix-blend-mode:normal}
@@ -235,7 +234,7 @@
   }
   .download-btn::after{
     content:"";position:absolute;inset:6px -6px -6px 6px;
-    background:var(--orange);mix-blend-mode:multiply;z-index:-1;
+    background:var(--brick);mix-blend-mode:multiply;z-index:-1;
   }
   .download-btn:hover{transform:translate(-2px,-2px)}
   .colophon-meta{
@@ -243,7 +242,7 @@
     font-size:11px;letter-spacing:3px;color:var(--ink-soft);
     text-transform:uppercase;line-height:2;
   }
-  .colophon-meta a{color:var(--blue);text-decoration:none;mix-blend-mode:multiply}
+  .colophon-meta a{color:var(--teal);text-decoration:none;mix-blend-mode:multiply}
   .colophon hr{
     border:none;border-top:1px solid var(--ink);
     margin:32px auto;width:60px;
@@ -251,16 +250,12 @@
 
   .deco-band{
     height:40px;margin:0 -28px;
-    background-image:radial-gradient(circle, var(--blue) 1.6px, transparent 1.8px);
+    background-image:radial-gradient(circle, var(--teal) 1.6px, transparent 1.8px);
     background-size:8px 8px;opacity:.5;mix-blend-mode:multiply;
   }
 
   @media(max-width:740px){
     main{padding:0 18px}
-    .stamp{top:auto;bottom:-20px;right:0;width:110px;height:110px}
-    .stamp .big{font-size:26px}
-    .stamp .top{font-size:13px}
-    .stamp .bot{font-size:9px}
     .pull-quote{grid-template-columns:1fr;gap:14px}
     .pull-quote .num{font-size:64px}
     .about-grid{grid-template-columns:1fr;gap:24px}
@@ -293,11 +288,6 @@
       <span class="tag t2">SAAS / AI</span>
       <span class="tag t3">流程拆解</span>
     </div>
-    <div class="stamp">
-      <span class="top">★ OPEN ★</span>
-      <span class="big">TO WORK</span>
-      <span class="bot">2026</span>
-    </div>
   </section>
 
   <!-- Pull quote -->
@@ -317,8 +307,12 @@
       <span class="chapter-kicker">Featured Story · 5 min read</span>
     </div>
     <div class="about-grid">
-      <div class="about-photo">
-        <div class="dots"></div>
+      <div class="geo-illust">
+        <div class="shape c-teal"></div>
+        <div class="shape s-brick"></div>
+        <div class="shape c-brick"></div>
+        <div class="shape s-teal"></div>
+        <div class="dots-overlay"></div>
         <span class="label">Self · 2026</span>
       </div>
       <div class="about-text">
