@@ -64,15 +64,26 @@
     box-shadow:0 0 80px rgba(245,195,170,.35);
   }
 
-  /* 火箭鉛筆容器 */
+  /* 火箭鉛筆 — 視差包裝層（負責 scroll 位移） */
+  .rocket-parallax{
+    position:absolute;top:8%;left:0;right:0;
+    will-change:transform;
+  }
+  /* 內層 — 負責置中 + 浮動動畫 */
   .rocket-wrap{
-    position:absolute;top:8%;left:50%;transform:translateX(-50%);
+    position:relative;left:50%;transform:translateX(-50%);
     width:320px;display:flex;flex-direction:column;align-items:center;
     animation:float 4s ease-in-out infinite;
   }
   @keyframes float{
     0%,100%{transform:translateX(-50%) translateY(0)}
     50%{transform:translateX(-50%) translateY(-12px)}
+  }
+  /* 視差元素統一最佳化 */
+  [data-speed]{will-change:transform}
+  /* 行動裝置 / 偏好減少動態 → 關閉視差 */
+  @media (prefers-reduced-motion: reduce){
+    [data-speed]{transform:none !important}
   }
   .rocket-svg{width:100%;height:auto;display:block;filter:drop-shadow(0 20px 40px rgba(40,20,60,.35))}
 
@@ -81,7 +92,9 @@
     position:absolute;left:0;right:0;bottom:0;
     height:42%;pointer-events:none;
   }
-  .clouds svg{width:100%;height:100%;display:block}
+  .clouds .cloud-layer{
+    position:absolute;inset:0;width:100%;height:100%;display:block;
+  }
 
   /* 簽名與角色 */
   .signature{
@@ -260,7 +273,7 @@
 <!-- ========== HERO ========== -->
 <section class="hero" id="hero">
   <!-- 星點 -->
-  <div class="stars">
+  <div class="stars" data-speed="0.55">
     <span style="top:8%;left:55%;width:2px;height:2px"></span>
     <span style="top:14%;left:70%;width:3px;height:3px"></span>
     <span style="top:22%;left:82%;width:2px;height:2px"></span>
@@ -278,9 +291,10 @@
   </button>
 
   <!-- 太陽 -->
-  <div class="sun"></div>
+  <div class="sun" data-speed="0.4"></div>
 
   <!-- 火箭鉛筆 -->
+  <div class="rocket-parallax" data-speed="0.18">
   <div class="rocket-wrap">
     <svg class="rocket-svg" viewBox="0 0 240 520" xmlns="http://www.w3.org/2000/svg">
       <defs>
@@ -353,37 +367,45 @@
       <div class="l7">Explore</div>
     </div>
   </div>
+  </div>
 
-  <!-- 雲層 -->
+  <!-- 雲層（拆成 3 個獨立 SVG，CSS transform 才能穩定作用） -->
   <div class="clouds">
-    <svg viewBox="0 0 1440 400" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- 後層雲（最遠，跑最慢） -->
+    <svg class="cloud-layer" data-speed="0.18" viewBox="0 0 1440 400" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="cloud1" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stop-color="#a495bd"/>
           <stop offset="100%" stop-color="#6b5f8a"/>
         </linearGradient>
+      </defs>
+      <path d="M0,220 C120,150 240,190 360,170 C480,150 600,200 720,180
+               C840,160 960,200 1080,180 C1200,160 1320,200 1440,180 L1440,400 L0,400 Z"
+            fill="url(#cloud1)"/>
+    </svg>
+    <!-- 中層雲（基準速） -->
+    <svg class="cloud-layer" viewBox="0 0 1440 400" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
         <linearGradient id="cloud2" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stop-color="#8a7daa"/>
           <stop offset="100%" stop-color="#4f4675"/>
         </linearGradient>
+      </defs>
+      <path d="M0,280 C120,220 260,260 400,240 C540,220 660,270 820,250
+               C960,230 1100,280 1240,260 C1340,246 1400,270 1440,260 L1440,400 L0,400 Z"
+            fill="url(#cloud2)"/>
+    </svg>
+    <!-- 前層雲（最近，往上滑離畫面） -->
+    <svg class="cloud-layer" data-speed="-0.25" viewBox="0 0 1440 400" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
         <linearGradient id="cloud3" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stop-color="#6b5f8a"/>
           <stop offset="100%" stop-color="#3b345c"/>
         </linearGradient>
       </defs>
-      <!-- 後層雲 -->
-      <path d="M0,220 C120,150 240,190 360,170 C480,150 600,200 720,180
-               C840,160 960,200 1080,180 C1200,160 1320,200 1440,180 L1440,400 L0,400 Z"
-            fill="url(#cloud1)"/>
-      <!-- 中層雲 -->
-      <path d="M0,280 C120,220 260,260 400,240 C540,220 660,270 820,250
-               C960,230 1100,280 1240,260 C1340,246 1400,270 1440,260 L1440,400 L0,400 Z"
-            fill="url(#cloud2)"/>
-      <!-- 前層雲 -->
       <path d="M0,330 C120,290 240,320 380,305 C520,290 640,330 800,315
                C960,300 1100,340 1260,325 C1360,316 1420,330 1440,325 L1440,400 L0,400 Z"
             fill="url(#cloud3)"/>
-      <!-- 雲中裝飾曲線（火箭尾巴）-->
       <path d="M480,300 C520,280 560,300 600,290 C640,280 680,300 720,288"
             stroke="#ffffff" stroke-opacity=".5" stroke-width="2" fill="none" stroke-linecap="round"/>
       <path d="M760,310 C810,290 860,310 910,300"
@@ -394,7 +416,7 @@
   </div>
 
   <!-- 簽名與角色 -->
-  <div class="signature">
+  <div class="signature" data-speed="-0.08">
     <div class="logo-script">Alessia Tatulli</div>
     <div class="roles">
       <span>illustrator</span>
@@ -603,6 +625,49 @@
 <div class="footer-bar"></div>
 
 <script>
+  /* ========== 視差滾動 ==========
+     - 只在 Hero 區的 [data-speed] 元素生效
+     - speed > 0 → 往下位移（看起來慢、像遠景）
+     - speed < 0 → 往上位移（看起來快、像近景）
+     - 用 requestAnimationFrame 節流，避免 scroll 卡頓
+     - 行動裝置（≤768px）與 prefers-reduced-motion 自動關閉
+  */
+  (function(){
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) return;
+
+    const layers = document.querySelectorAll('.hero [data-speed]');
+    let ticking = false;
+
+    function update(){
+      const y = window.scrollY;
+      // 視窗太窄（手機）→ 清除位移、不再計算
+      if (window.innerWidth <= 480) {
+        layers.forEach(el => { el.style.transform = ''; });
+        ticking = false;
+        return;
+      }
+      // Hero 滾出畫面後就不用再算（多算一個 viewport 緩衝）
+      if (y > window.innerHeight * 1.2) { ticking = false; return; }
+      layers.forEach(el => {
+        const s = parseFloat(el.dataset.speed);
+        el.style.transform = `translate3d(0, ${y * s}px, 0)`;
+      });
+      ticking = false;
+    }
+
+    function onScroll(){
+      if (!ticking) {
+        requestAnimationFrame(update);
+        ticking = true;
+      }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    // 載入後立即跑一次（萬一頁面開在已捲動位置）
+    update();
+  })();
+
   // 圓點導覽顏色切換（進到 about 區變深色版）
   const dotNav = document.querySelector('.dot-nav');
   const hero = document.getElementById('hero');
